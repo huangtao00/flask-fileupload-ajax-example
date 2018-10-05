@@ -8,6 +8,8 @@ from flask import (
 )
 from werkzeug import secure_filename
 import os
+from shutil import copyfile
+
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -73,9 +75,12 @@ def upldfile():
             filename = secure_filename(files.filename)
             app.logger.info('FileName: ' + filename)
             updir = os.path.join(basedir, 'upload/')
+            showdir=os.path.join(basedir,"static/")
             files.save(os.path.join(updir, filename))
+            copyfile(os.path.join(updir, filename), os.path.join(showdir, filename))
+            # files.save(os.path.join(updir, filename))
             file_size = os.path.getsize(os.path.join(updir, filename))
-            return jsonify(name=filename, size=file_size)
+            return jsonify(name=filename, size=file_size,path="/static/"+filename)
 
 
 if __name__ == '__main__':

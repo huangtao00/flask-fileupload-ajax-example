@@ -16,8 +16,11 @@ $(function() {
             console.log('Success!');
             $("#resultFilename").text(data['name']);
             $("#resultFilesize").text(data['size']);
+            $("#filenametd").text(data['name']);
+            $("#filesizetd").text(data['size']);
+            $("#image_show").prop('src',data['path']);
         }).fail(function(data){
             alert('error!');
         });
     });
-}); 
+});
